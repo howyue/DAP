@@ -1,6 +1,6 @@
 *----------------------------------------------------------------------*
 | This entire script is similar to Obj.9.CorrelationVSEconomy2015.sas  |
-| only changing the work.Economy to dap.poverty in PROC SQL            |
+| only changing the dap.Economy to dap.poverty in PROC SQL             |
 *----------------------------------------------------------------------;
 
 proc sql;
