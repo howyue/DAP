@@ -12,6 +12,10 @@ proc sql;
 			AND c.CrimeType IN ('TotalCrime');
 run;
 
+*---------------------------------------------------*
+| Overwrite the SAS default templete to use my      |
+| desire colors and adjust the legend position      |
+*---------------------------------------------------;
 proc template;
 	define style styles.colorramp;
 	pattern1 c=white;
@@ -48,6 +52,12 @@ proc gmap map=maps.us data=work.TotalCrimeByState;
 		annotate=maplabel;
 run;
 
+*---------------------------------------------------*
+| Overwrite the earlier templete to adjust the      |
+| colors because theres no country falls under      |
+| the 100k- 200k category, so the colors are        |
+| comparable to map for 2014                        |
+*---------------------------------------------------;
 proc template;
 	define style styles.colorramp;
 	pattern1 c=white;
