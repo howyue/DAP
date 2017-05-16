@@ -1,6 +1,6 @@
 proc summary nway data=work.table4;
-* This is to SUM all cities' value group by StateName & Year and produce a 
-temporary data set called tmpmasterbystate ;
+/* This is to SUM all cities' value group by StateName & Year and produce a 
+temporary data set called tmpmasterbystate */
 	var Aggravated_Assault Arson Burglary Larceny_Theft 
 		Motor_Vehicle_Theft Murder Property_Crime Rape Robbery 
 		Violent_Crime TotalCrime Population;
@@ -26,6 +26,6 @@ proc gchart data=work.tmpmasterbystate;
 		group=StateNAme 
 		sumvar=COL1 
 		discrete;  
-	label COL1 = 'Total Crime';
+	label COL1 = 'Total Crime'; /* We did not rename COL1 in PROC TRANSPOSE hence overwrite the default COL1 name with Total Crime */
 	format COL1 comma10.;
 run;                                                                                                                                    
