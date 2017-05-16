@@ -1,7 +1,15 @@
+*---------------------------------------------------*
+| MasterByState need to sorted by CrimeType so the  |
+| crimetype is grouped together before PROC RANK    |
+*---------------------------------------------------;
 proc sort data=work.MasterByState;
 	by CrimeType descending CrimeRate2015;
 run;
 
+*---------------------------------------------------*
+| Rank the CrimeRate in descending order because we |
+| want the ranking for the highest                  |
+*---------------------------------------------------;
 proc rank data=work.MASTERBYSTATE out=work.CrimeRateRankingByCategory ties=low 
 		descending;
 	by CrimeType;
