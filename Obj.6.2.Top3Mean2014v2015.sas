@@ -2,7 +2,7 @@ data work.masterbycitycategory;
 	length PopCategory $ 50;
 	set work.MasterByCity;
 	format Population2015 fPopulation;
-	*where crimetype = 'TotalCrime';
+	/* Adds new variable call PopCategory to group each city into a population group */
 	if Population2015 < 200000 then PopCategory = '1. Less than 200,000';
 	if 200000<=Population2015<=300000 then PopCategory = '2. Between 200,000 and 300,000';
 	if 300000<=Population2015<=400000 then PopCategory = '3. Between 300,000 and 400,000';
@@ -17,7 +17,7 @@ title1 'The Overall Crime By Population Category 2015';
 title2 'Top 3 State - California, New York, Texas';
 proc tabulate data=work.masterbycitycategory;
 	where crimetype = 'TotalCrime' and statename in ('California','New York','Texas');
-	class PopCategory / ASCENDING;
+	class PopCategory / ASCENDING; /* The PopCategory is prefix with a number to be used for sorting */
 	var Total2015 ;
 	table PopCategory, Total2015 * (N Mean Min Max);
 	label PopCategory = 'Population Category';
@@ -27,7 +27,7 @@ title1 'The Overall Crime By Population Category 2014';
 title2 'Top 3 State - California, New York, Texas';
 proc tabulate data=work.masterbycitycategory;
 	where crimetype = 'TotalCrime' and statename in ('California','New York','Texas');
-	class PopCategory / ASCENDING;
+	class PopCategory / ASCENDING; /* The PopCategory is prefix with a number to be used for sorting */
 	var Total2014 ;
 	table PopCategory, Total2014 * (N Mean Min Max);
 	label PopCategory = 'Population Category';
