@@ -1,3 +1,10 @@
+*----------------------------------------------------------------*
+| Overwrite the default template and customizing the cell style. |
+| For correlaton (matrix), changing the colorto red when the     |
+| value is greater equal to 0.9. Leaving out matrix2 (p-value) & |
+| observation (matrix3) to its default.                          |
+*----------------------------------------------------------------;
+
 proc template;
 	edit base.corr.stackedmatrix;
 		column (rowname rowlabel) (matrix) * (matrix2) * (matrix3);
