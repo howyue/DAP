@@ -14,6 +14,11 @@ proc rank data=work.MasterByStateWithPopulation out=work.MasterByStateTotalCrime
 	ranks TotalCrime2014Rank TotalCrime2015Rank;
 run;
 
+*------------------------------------------------------*
+| After PROC RANK the data set need to be sorted       |
+| otherwise PROC PRINT & PROC GCHART below will not    |
+| display according in the order of TotalCrime2015Rank |
+*------------------------------------------------------;
 proc sort data=work.MasterByStateTotalCrimeRank;
 	by TotalCrime2015Rank;
 run;
@@ -21,7 +26,7 @@ run;
 ODS html file='Obj.4.1.Top10TotalCrime20142015.html' style=sasweb;
 
 title1 'Top 10 State by Total Crime 2014/2015';
-axis1 label=none; *This is to overwrite the default axis so nothing is shown;
+axis1 label=none; *This is to overwrite the default axis not to show m-axis label;
 axis2 color=blue label=('Total Crime Reported');
 
 proc print data=work.MasterByStateTotalCrimeRank noobs label;
@@ -34,6 +39,7 @@ proc print data=work.MasterByStateTotalCrimeRank noobs label;
 		TotalCrime2014Rank = 'Ranking (2014)';
 run;
 
+/* Plot the horizontal bar chart by the TotalCrime reported*/
 proc gchart data=work.MasterByStateTotalCrimeRank;
 	where CrimeType='TotalCrime' and TotalCrime2015Rank < 11;
 	hbar StateName / discrete
