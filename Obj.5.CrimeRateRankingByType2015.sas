@@ -1,8 +1,3 @@
-*-----------------------------------------------------------------------------*
-| This entire script is similar to Obj.4.3.CrimeRateChangeRanking20142015.sas | 
-| but it is group by CrimeType in PROC PRINT                                  |
-*-----------------------------------------------------------------------------;
-
 proc sort data=work.MasterByState;
 	by CrimeType descending CrimeRate2015;
 run;
@@ -19,8 +14,8 @@ ODS html file='Obj.5.CrimeRateRankingByType2015.html' STYLE=sasweb;
 title1 'Violent Crime Rate Ranking By Type 2015';
 
 proc print data=work.CrimeRateRankingByCategory noobs label;
-	by CrimeType; *The key to this script;;vv
-	where CrimeType IN (', 'Murder', 'Rape', 'Robbery') 
+	by CrimeType;
+	where CrimeType IN ('Aggravated_Assault', 'Murder', 'Rape', 'Robbery') 
 		and CrimeRate2015Rank <=3 
 		and CrimeRate2015Rank ^=.;
 	var StateName CrimeRate2015Rank CrimeRate2014Rank CrimeRateChange CrimeRate2015;	
