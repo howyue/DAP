@@ -1,3 +1,8 @@
+*----------------------------------------------------------------------*
+| This entire script is similar to Obj.9.CorrelationVSEconomy2015.sas  |
+| only changing the work.Economy to dap.poverty in PROC SQL            |
+*----------------------------------------------------------------------;
+
 proc sql;
 	CREATE TABLE work.TotalCrimeByStateByPoverty AS
 		SELECT a.Total2015, b.*
