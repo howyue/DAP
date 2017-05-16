@@ -22,6 +22,7 @@ data work.tmpMasterByCityPopulation;
 	set work.tmpMasterByCity;
 	Population2014=Total2014;
 	Population2015=Total2015;
+	/* Keep only population so when this join to tmpMasterByCity it is 1 to 1 relationship */
 	if CrimeType ^="Population" then DELETE;
 run;
  
@@ -50,6 +51,7 @@ data work.MasterByCity;
 		CrimeRateChange comma6.2;	
 run;
 
+/*Clean up the temporarily data set */
 proc delete data=work.tmpmasterbycity;
 proc delete data=work.tmpMasterByCityPopulation;
 
@@ -59,8 +61,8 @@ proc delete data=work.tmpMasterByCityPopulation;
 |         StateName                         |
 *-------------------------------------------;
 proc summary nway data=work.table4;
-* This is to SUM all cities' value group by StateName & Year and produce a 
-temporary data set called tmpmasterbystate ;
+/* This is to SUM all cities' value group by StateName & Year and produce a 
+temporary data set called tmpmasterbystate */
 	var Aggravated_Assault Arson Burglary Larceny_Theft 
 		Motor_Vehicle_Theft Murder Property_Crime Rape Robbery 
 		Violent_Crime TotalCrime Population;
@@ -82,6 +84,7 @@ data work.tmpMasterByStatePopulation;
 	set work.tmpMasterByState;
 	Population2014=Total2014;
 	Population2015=Total2015;
+	/* Keep only population so when this join to tmpMasterByState it is 1 to 1 relationship */
 	if CrimeType ^="Population" then DELETE;
 run;
 
@@ -107,5 +110,6 @@ data work.MasterByState;
 		CrimeRateChange comma6.2;	
 run;
 
+/*Clean up the temporarily data set */
 proc delete data=work.tmpmasterbystate;
 proc delete data=work.tmpMasterByStatePopulation;
