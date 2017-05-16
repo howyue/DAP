@@ -12,6 +12,10 @@ proc sql;
 			AND c.CrimeType IN ('Population');
 run;
 
+*---------------------------------------------------*
+| Overwrite the SAS default templete to use my      |
+| desire colorsand adjust the legend position       |
+*---------------------------------------------------;
 proc template;
 	define style styles.colorramp;
 	pattern1 c=white;
