@@ -1,3 +1,9 @@
+*------------------------------------------------------------------------*
+| This entire script is similar to Obj.4.2.CrimeRateRanking20142015.sas  |
+| only changing from CrimeRate to CrimeRateChange (difference between    |
+| 2014 & 2015)                                                           |
+*------------------------------------------------------------------------;
+
 proc sql;
 	CREATE TABLE work.MasterByStateWithPopulation AS
 		SELECT a.*, b.Total2015 AS Population2015
