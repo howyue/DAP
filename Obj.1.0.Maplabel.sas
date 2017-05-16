@@ -1,3 +1,7 @@
+*---------------------------------------------------*
+| This is to create the annotate table which will   |
+| be used by PROC GMAP                              |
+*---------------------------------------------------;
 data maplabel;
    length function $ 8;
    retain flag 0 xsys ysys '2' hsys '3' when 'a' style "'Albany AMT'";
