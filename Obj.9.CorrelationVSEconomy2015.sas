@@ -1,3 +1,8 @@
+*-----------------------------------------------*
+| Sorting the work.MasterByState by StateName   |
+| to ensure all the States are grouped together |
+| prior to the PROC TRANSPOSE                   |
+*-----------------------------------------------;
 proc sort data=work.MasterByState;
 	by StateName;
 run;
@@ -11,12 +16,18 @@ proc transpose data=work.MasterByState(keep=StateName CrimeType Total2015
 	by StateName;
 run;
 
+*-----------------------------------------------*
+| Sorting the work.Economy by StateName         |
+| to ensure all the States are grouped together |
+| prior to the PROC TRANSPOSE                   |
+*-----------------------------------------------;
 proc sort data=dap.Economy;
 	by StateName NAIC;
 run;
 
 proc transpose data=dap.Economy out=work.StateEconomyValue(DROP=_NAME_ _LABEL_);
 	by StateName;
+	/* Label the new dataste work.StateEconomyValue */
 	label COL1='Accommodation and food services' 
 		COL2='Administrative and support and waste management an' 
 		COL3='Arts, entertainment, and recreation' COL4='Construction' 
@@ -45,6 +56,11 @@ proc sql;
 			ON a.StateName=b.StateName;
 run;
 
+*-------------------------------------------------------*
+| Similar to Obj.8.CorrelationCrimeType.sas overwriting |
+| the cell style to highlight correlation when it is    |
+| greater equal to 0.8                                  |
+*-------------------------------------------------------;
 proc template;
 	edit base.corr.stackedmatrix;
 		column (rowname rowlabel) (matrix) * (matrix2) * (matrix3);
@@ -61,6 +77,7 @@ title1 'Correlation Between Crime Category (2015) and States'' Economy Value By 
 title2 'Value of sales, shipments, receipts, revenue, or business done ($1,000)';
 
 proc corr data=work.TotalCrimeByStateByEconomy out=work.TotalCrimeByStateByEconomyCorr;
+	/* Finding the correlation of one group variables against another group of variables */
 	var Aggravated_Assault Arson Burglary Larceny_Theft Motor_Vehicle_Theft Murder 
 		Rape Robbery;
 	with COL1 COL2 COL3 COL4 COL5 COL6 COL7 COL8 COL9 COL10 COL11 COL12 COL13 
@@ -71,6 +88,10 @@ proc template;
    delete base.corr.stackedmatrix;
 run;
 
+*-------------------------------------------------------*
+| After identifying the significant correlation run the |
+| PROC CORR individually and produce a scatter plot     |
+*-------------------------------------------------------;
 title1 'Correlation Between Motor Vehicle Theft and Mining, quarrying, and oil and gas extraction Industry';
 
 proc corr data=work.TotalCrimeByStateByEconomy plot=scatter();
