@@ -22,7 +22,7 @@ ODS html file='Obj 5 - 2. CorrelationVSEthnicty2015.html' STYLE=sasweb;
 title1 'Correlation Between Total Crime (2015) with Ethnicity';
 proc corr data=work.TotalCrimeByStateByEthnicity; 
 	var Total2015;
-	with var4-var19;*Exclude the Estimate; Total:;
+	with var4-var19;/*Exclude the Estimate; Total:*/
 run;
 
 proc template;
