@@ -1,0 +1,9 @@
+<query schema-version="1.0" lang="en" type="table" sig="MNlcSciWVyg03jBspJRQrvjPSxw">
+  <product program-id="ECN" dataset-id="2012_US" table-id="00A1"/>
+  <selection>
+    <dimension type="geo" vintage="2012">
+      <cat-id>0100000US</cat-id>
+      <cat-id>0100000US.04000.001</cat-id>
+    </dimension>
+  </selection>
+</query>
